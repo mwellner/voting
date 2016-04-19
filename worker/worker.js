@@ -13,13 +13,10 @@ var interval = 5;
 console.log("Starting worker process with interval of " + interval + "ms");
 
 setInterval(function() {
-  pullFromRedis();
-}, interval);
-
-function pullFromRedis() {
   var multi = client.multi();
   multi.exec(multiCommandCallback);
-}
+}, interval);
+
 
 function multiCommandCallback(err, res) {
   client.llen("votes", function(err, len) {

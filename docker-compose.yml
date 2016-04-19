@@ -27,9 +27,29 @@ services:
     image: redis:alpine
     ports:
     - "8888:6379"
-  worker:
+  worker1:
     build: ./worker/
-    image: mwellner/voting-worker
+    image: mwellner/voting-worker1
+    links:
+    - "redis"
+    - "db"
+    entrypoint:
+    - ./wait-for-postgres.sh
+    - db
+    - npm start
+  worker2:
+    build: ./worker/
+    image: mwellner/voting-worker2
+    links:
+    - "redis"
+    - "db"
+    entrypoint:
+    - ./wait-for-postgres.sh
+    - db
+    - npm start
+  worker3:
+    build: ./worker/
+    image: mwellner/voting-worker3
     links:
     - "redis"
     - "db"
