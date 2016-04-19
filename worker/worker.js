@@ -9,27 +9,36 @@ client.on("error", function(err) {
   console.log("Error " + err);
 });
 
-console.log("Starting worker process");
+var interval = 10;
+console.log("Starting worker process with interval of " + interval + "ms");
 
 setInterval(function() {
+  pullFromRedis();
+}, interval);
+
+function pullFromRedis() {
   var multi = client.multi();
-  multi.exec(function(err, res) {
-    client.llen("votes", function(err, len) {
-      if (err === null && len > 0) {
-        client.lpop("votes", function(err, queueItem) {
-          console.log("recieved item " + queueItem + " from redis queue");
-          var number = parseInt(queueItem, 10);
-          if (!isNaN(number)) {
-            db.none("INSERT INTO votes(vote) VALUES($1)", [number])
-              .then(function() {
-                console.log("saved vote " + number + " in database");
-              })
-              .catch(function (error) {
-                console.log("error: " + error);
-              });
-          }
-        });
-      }
-    });
+  multi.exec(multiCommandCallback);
+}
+
+function multiCommandCallback(err, res) {
+  client.llen("votes", function(err, len) {
+    if (err === null && len > 0) {
+      client.lpop("votes", function(err, queueItem) {
+        console.log("recieved item " + queueItem + " from redis queue");
+        var number = parseInt(queueItem, 10);
+        if (!isNaN(number)) storeVoteInDb(number);
+      });
+    }
   });
-}, 1000);
+}
+
+function storeVoteInDb(number) {
+  db.none("INSERT INTO votes(vote) VALUES($1)", [number])
+    .then(function() {
+      console.log("saved vote " + number + " in database");
+    })
+    .catch(function (error) {
+      console.log("error: " + error);
+    });
+}
