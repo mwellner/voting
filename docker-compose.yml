@@ -1,0 +1,40 @@
+version: '2'
+services:
+  db:
+    build: ./db/
+    image: mwellner/voting-db
+    ports:
+    - "5555:5432"
+  result:
+    build: ./result/
+    image: mwellner/voting-result
+    ports:
+    - "8080:3000"
+    links:
+    - "db"
+    entrypoint: 
+    - ./wait-for-postgres.sh
+    - db
+    - npm start
+  input:
+    build: ./input/
+    image: mwellner/voting-input
+    ports:
+    - "8090:3000"
+    links:
+    - "redis"
+  redis:
+    image: redis:alpine
+    ports:
+    - "8888:6379"
+  worker:
+    build: ./worker/
+    image: mwellner/voting-worker
+    links:
+    - "redis"
+    - "db"
+    entrypoint:
+    - ./wait-for-postgres.sh
+    - db
+    - npm start
+

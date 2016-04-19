@@ -1,0 +1,13 @@
+{
+  "name": "voting-worker",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "nodejs ./worker.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "pg-promise": "^3.8.2",
+    "redis": "^2.6.0-1"
+  }
+}
