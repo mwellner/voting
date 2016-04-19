@@ -9,7 +9,7 @@ client.on("error", function(err) {
   console.log("Error " + err);
 });
 
-var interval = 10;
+var interval = 5;
 console.log("Starting worker process with interval of " + interval + "ms");
 
 setInterval(function() {

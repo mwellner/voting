@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  console.log(req.body);
   client.rpush('votes', req.body.vote);  
   res.render('confirm', {vote: req.body.vote});
 });
