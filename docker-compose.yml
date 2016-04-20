@@ -17,10 +17,10 @@ services:
     - db
     - npm start
   input:
-    build: ./input/
-    image: mwellner/voting-input
+    build: ./input_python/
+    image: mwellner/voting-input-python
     ports:
-    - "8090:3000"
+    - "8090:5000"
     links:
     - "redis"
   redis:
@@ -30,26 +30,6 @@ services:
   worker1:
     build: ./worker/
     image: mwellner/voting-worker1
-    links:
-    - "redis"
-    - "db"
-    entrypoint:
-    - ./wait-for-postgres.sh
-    - db
-    - npm start
-  worker2:
-    build: ./worker/
-    image: mwellner/voting-worker2
-    links:
-    - "redis"
-    - "db"
-    entrypoint:
-    - ./wait-for-postgres.sh
-    - db
-    - npm start
-  worker3:
-    build: ./worker/
-    image: mwellner/voting-worker3
     links:
     - "redis"
     - "db"

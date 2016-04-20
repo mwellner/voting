@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Voting Page{% endblock %}
+{% block content %}
+  <div class="row column">
+    <h1>Make your choice</h1>
+  </div>
+  <form method="post">
+    <div class="row">
+      <fieldset class="large-6 columns">
+        <legend>What drink do you prefer?</legend>
+        <input id="vote1" type="radio" name="vote" value="1" checked/>
+        <label for="vote1">Beer</label>
+        <input id="vote2" type="radio" name="vote" value="2"/>
+        <label for="vote2">Wine</label>
+        <input id="vote3" type="radio" name="vote" value="3"/>
+        <label for="vote3">Champagne</label>
+      </fieldset>
+    </div>
+    <div class="row columns">
+      <button type="submit" class="button">Submit</button>
+    </div>
+  </form>
+{% endblock %}
