@@ -5,36 +5,34 @@ services:
     image: mwellner/voting-db
     ports:
     - "5555:5432"
-  result:
-    build: ./result/
-    image: mwellner/voting-result
+  redis:
+    image: redis:alpine
+    ports:
+    - "8888:6379"
+  result-python:
+    build: ./result-python/
+    image: mwellner/voting-result-python
+    ports:
+    - "8081:5000"
+    links:
+    - "db"
+  result-nodejs:
+    build: ./result-nodejs/
+    image: mwellner/voting-result-nodejs
     ports:
     - "8080:3000"
     links:
     - "db"
-    entrypoint: 
-    - ./wait-for-postgres.sh
-    - db
-    - npm start
-  input:
-    build: ./input_python/
+  input-python:
+    build: ./input-python/
     image: mwellner/voting-input-python
     ports:
     - "8090:5000"
     links:
     - "redis"
-  redis:
-    image: redis:alpine
-    ports:
-    - "8888:6379"
-  worker1:
-    build: ./worker/
-    image: mwellner/voting-worker1
+  worker:
+    build: ./worker-nodejs/
+    image: mwellner/voting-worker-nodejs
     links:
     - "redis"
     - "db"
-    entrypoint:
-    - ./wait-for-postgres.sh
-    - db
-    - npm start
-

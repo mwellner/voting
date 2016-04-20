@@ -16,4 +16,4 @@ RUN  				npm install --production
 COPY        . /usr/src/app/
 
 # start web app
-#CMD         ["npm", "start"]
+CMD         ["npm", "start"]

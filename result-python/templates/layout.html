@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/foundation-flex.css">
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="header">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Voting App</li>
+            <li><a href="/result">Results</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+    <div id="footer">
+      {% block footer %}
+      &copy; Copyright 2016 by <a href="http://www.mwellner.de">Mathias Wellner</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>

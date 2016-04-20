@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Voting Page{% endblock %}
+{% block content %}
+  <div class="row column">
+    <h1>Voting Results</h1>
+  </div>
+  <div class="row"> 
+    <div class="large-4 columns">
+      <table>
+        <tr>
+          <td>Beer votes</td>
+          <td class="text-right">{{ counts[0] }}</td>
+        </tr>
+        <tr>
+          <td>Wine votes</td>
+          <td class="text-right">{{ counts[1] }}</td>
+        </tr>
+        <tr>
+          <td>Champagne votes</td>
+          <td class="text-right">{{ counts[2] }}</td>
+        </tr>
+        <tr>
+          <td>Overall votes</td>
+          <td class="text-right">{{ counts[0] + counts[2] + counts[1] }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+{% endblock %}
