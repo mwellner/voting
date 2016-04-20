@@ -8,6 +8,17 @@
     {% endblock %}
   </head>
   <body>
+    <div id="header">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Voting App</li>
+            <li><a href="/input">Vote for drinks</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div id="content">
       {% block content %}{% endblock %}
     </div>

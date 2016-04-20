@@ -3,5 +3,16 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/foundation-flex.css')
   body
-    block content
+    #header
+      .top-bar
+        .top-bar-left
+          ul.dropdown.menu(data-dropdown-menu)
+            li.menu-text Voting App
+            li 
+              a(href="/result") Results
+            li
+              a(href="/contact") Contact
+    #content
+      block content

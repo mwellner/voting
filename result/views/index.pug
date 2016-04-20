@@ -1,8 +1,20 @@
 extends layout
 
 block content
-  h1 Vote Results
-  p Votes for first option: #{count1}
-  p Votes for second option: #{count2} 
-  p Votes for third option: #{count3}
-  p Overall votes: #{count}
+  .row.column
+    h1 Voting Results
+  .row
+    .large-4.columns
+      table
+        tr
+          td Beer votes
+          td.text-right #{count1}
+        tr
+          td Wine votes 
+          td.text-right #{count2}
+        tr
+          td Champagne votes 
+          td.text-right #{count3}
+        tr
+          td Overall votes
+          td.text-right #{count}

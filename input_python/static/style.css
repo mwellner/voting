@@ -2,11 +2,11 @@ body {
 }
 
 #content {
-  padding: 0.1em 2em;
+  margin-top: 2em;
 }
 
 #footer {
   padding: 1em 2em;
   margin-top: 2em;
-  background-color: lightgray;
+  background-color: #e6e6e6;
 }
