@@ -9,20 +9,42 @@ services:
     image: redis:alpine
     ports:
     - "8888:6379"
-  result-python:
+  result1:
     build: ./result-python/
-    image: mwellner/voting-result-python
-    ports:
-    - "8081:5000"
+    image: mwellner/voting-result1
     links:
     - "db"
-  result-nodejs:
-    build: ./result-nodejs/
-    image: mwellner/voting-result-nodejs
-    ports:
-    - "8080:3000"
+  result2:
+    build: ./result-python/
+    image: mwellner/voting-result2
     links:
     - "db"
+  result3:
+    build: ./result-python/
+    image: mwellner/voting-result3
+    links:
+    - "db"
+  result4:
+    build: ./result-python/
+    image: mwellner/voting-result4
+    links:
+    - "db"
+  result5:
+    build: ./result-python/
+    image: mwellner/voting-result5
+    links:
+    - "db"
+  nginx:
+    build: ./nginx/
+    image: mwellner/voting-nginx
+    ports:
+    - "8080:80"
+    links:
+    - "result1"
+    - "result2"
+    - "result3"
+    - "result4"
+    - "result5"
   input-python:
     build: ./input-python/
     image: mwellner/voting-input-python
@@ -30,9 +52,21 @@ services:
     - "8090:5000"
     links:
     - "redis"
-  worker:
+  worker1:
     build: ./worker-nodejs/
-    image: mwellner/voting-worker-nodejs
+    image: mwellner/voting-worker1
+    links:
+    - "redis"
+    - "db"
+  worker2:
+    build: ./worker-nodejs/
+    image: mwellner/voting-worker2
+    links:
+    - "redis"
+    - "db"
+  worker3:
+    build: ./worker-nodejs/
+    image: mwellner/voting-worker3
     links:
     - "redis"
     - "db"
