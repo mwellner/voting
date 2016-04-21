@@ -24,16 +24,6 @@ services:
     image: mwellner/voting-result3
     links:
     - "db"
-  result4:
-    build: ./result-python/
-    image: mwellner/voting-result4
-    links:
-    - "db"
-  result5:
-    build: ./result-python/
-    image: mwellner/voting-result5
-    links:
-    - "db"
   nginx:
     build: ./nginx/
     image: mwellner/voting-nginx
@@ -43,8 +33,6 @@ services:
     - "result1"
     - "result2"
     - "result3"
-    - "result4"
-    - "result5"
   input-python:
     build: ./input-python/
     image: mwellner/voting-input-python
