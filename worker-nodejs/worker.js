@@ -9,7 +9,7 @@ client.on("error", function(err) {
   console.log("Error " + err);
 });
 
-var interval = 5;
+var interval = 10;
 console.log("Starting worker process with interval of " + interval + "ms");
 
 setInterval(function() {
@@ -21,11 +21,12 @@ setInterval(function() {
 function multiCommandCallback(err, res) {
   client.llen("votes", function(err, len) {
     if (err === null && len > 0) {
-      client.lpop("votes", function(err, queueItem) {
-        console.log("recieved item " + queueItem + " from redis queue");
-        var number = parseInt(queueItem, 10);
-        if (!isNaN(number)) storeVoteInDb(number);
-      });
+      for (var i = 0; i < len; i++) {
+        client.lpop("votes", function(err, queueItem) {
+          var number = parseInt(queueItem, 10);
+          if (!isNaN(number)) storeVoteInDb(number);
+        });
+      }
     }
   });
 }

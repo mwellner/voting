@@ -46,15 +46,3 @@ services:
     links:
     - "redis"
     - "db"
-  worker2:
-    build: ./worker-nodejs/
-    image: mwellner/voting-worker2
-    links:
-    - "redis"
-    - "db"
-  worker3:
-    build: ./worker-nodejs/
-    image: mwellner/voting-worker3
-    links:
-    - "redis"
-    - "db"
