@@ -14,26 +14,9 @@ services:
     image: mwellner/voting-result1
     links:
     - "db"
-  result2:
-    build: ./result-python/
-    image: mwellner/voting-result2
-    links:
-    - "db"
-  result3:
-    build: ./result-python/
-    image: mwellner/voting-result3
-    links:
-    - "db"
-  nginx:
-    build: ./nginx/
-    image: mwellner/voting-nginx
     ports:
-    - "8080:80"
-    links:
-    - "result1"
-    - "result2"
-    - "result3"
-  input-python:
+    - "8080:5000"
+  input:
     build: ./input-python/
     image: mwellner/voting-input-python
     ports:

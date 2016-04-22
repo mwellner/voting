@@ -1,3 +1,4 @@
 clean-up.sh
 node_modules
 *.py[cod]
+*.csv
