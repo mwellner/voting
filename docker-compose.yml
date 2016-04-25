@@ -9,21 +9,31 @@ services:
     image: redis:alpine
     ports:
     - "8888:6379"
-  result1:
+  result-app:
     build: ./result-python/
-    image: mwellner/voting-result1
+    image: mwellner/voting-result
     links:
     - "db"
     ports:
-    - "8080:5000"
-  input:
+    - "5000"
+  load-balancer:
+    image: dockercloud/haproxy
+    depends_on:
+    - "result-app"
+    ports: 
+    - "8080:80"
+    links:
+    - "result-app"
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  input-app:
     build: ./input-python/
     image: mwellner/voting-input-python
     ports:
     - "8090:5000"
     links:
     - "redis"
-  worker1:
+  worker:
     build: ./worker-nodejs/
     image: mwellner/voting-worker1
     links:
