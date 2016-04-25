@@ -14,9 +14,7 @@ def input():
   if request.method == 'GET':
     return render_template('input.html')
   else:
-    voter_id = hex(random.getrandbits(64))[2:-1]
-    data = json.dumps({'voter_id': voter_id, 'vote': request.form['vote']})
-    redisClient.rpush('votes', data) 
+    redisClient.rpush('votes', request.form['vote']) 
     return render_template('confirm.html')
 
 @app.route("/about")
