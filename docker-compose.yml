@@ -7,8 +7,7 @@ services:
     - "5555:5432"
   redis:
     image: redis:alpine
-    ports:
-    - "8888:6379"
+    ports: ["6379"]
   result-app:
     build: ./result-python/
     image: mwellner/voting-result
@@ -34,8 +33,6 @@ services:
     links:
     - "redis"
   worker:
-    build: ./worker-nodejs/
-    image: mwellner/voting-worker1
+    image: manomarks/worker
     links:
-    - "redis"
     - "db"
